@@ -5,6 +5,9 @@
 	<artifactId>Ogloszenia</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<properties>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
