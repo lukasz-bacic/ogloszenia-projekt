@@ -1,15 +1,22 @@
 package ogloszenia.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.NotFound;
 
 @Entity
-public class Ogloszenie {
+
+public class Advertisement {
 	/*
 	tytul
     zdjecie
@@ -26,40 +33,68 @@ public class Ogloszenie {
     liczba wyswietlen
 	 */
 	
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true)
 	Integer id;
 	
+	
+	@Column(nullable=false)
 	String title;
 	
-	String img;
+	@Lob
+	byte[] img;						
 	
-	String owner; // TODO User ENTITY
-	
+	@JoinColumn(nullable=false)
+	@ManyToOne
+	User owner; 
+
+	@Column(nullable=false)
 	BigDecimal price;
 	
+	@Column(nullable=false)
 	String text;
 	
-	Integer dateFrom;
+	@Column(nullable=false)
+	LocalDate dateFrom;
 	
-	Integer dateTo;
+	@Column(nullable=false)
+	LocalDate dateTo;
 	
+	@Column(nullable=false)
 	Boolean isActive;
 	
+	@Column(nullable=false)
 	Boolean isPremium;
 	
+	@Column(nullable=false)
 	String cityName;
 	
+	@Column(nullable=false)
 	Integer rating;
 	
+	@Column(nullable=false)
 	String category;
 	
+	@Column(nullable=false)
 	Integer views;
 	
 	
+	public Advertisement(){}
 	
 	
+	public byte[] getImg() {
+		return img;
+	}
+
+
+
+	public void setImg(byte[] img) {
+		this.img = img;
+	}
+
 	
 	public String getTitle() {
 		return title;
@@ -67,22 +102,6 @@ public class Ogloszenie {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 
 	public BigDecimal getPrice() {
@@ -101,19 +120,19 @@ public class Ogloszenie {
 		this.text = text;
 	}
 
-	public Integer getDateFrom() {
+	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(Integer dateFrom) {
+	public void setDateFrom(LocalDate dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public Integer getDateTo() {
+	public LocalDate getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(Integer dateTo) {
+	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
 	}
 
@@ -173,6 +192,13 @@ public class Ogloszenie {
 		this.id = id;
 	}
 
-	
+	public User getOwner() {
+		return owner;
+	}
+
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 
 }
