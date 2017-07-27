@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Ogloszenie {
+public class Advertisement {
 
 	@Id
 	@Column(name = "id")
@@ -24,8 +26,9 @@ public class Ogloszenie {
 	@Lob
 	byte[] img;
 
-	@Column(nullable = false)
-	String owner; // TODO user entity
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	User owner; // TODO user entity
 
 	@Column(nullable = false)
 	BigDecimal price;
@@ -79,14 +82,6 @@ public class Ogloszenie {
 
 	public void setImg(byte[] img) {
 		this.img = img;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 
 	public BigDecimal getPrice() {
