@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -42,6 +43,9 @@ public class User {
 	
 	@Column(nullable=false)
 	String cityName;
+	
+	@ManyToMany(mappedBy="watchers")
+	Set<Advertisement> followedAdvertisemets;
 	
 	@OneToMany(mappedBy="owner")
 	Set<Advertisement> ads;
