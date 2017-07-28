@@ -11,6 +11,9 @@ public class Test {
 		Session s = HibernateUtil.openSession().getSession();
 		
 		Advertisement o  = s.find(Advertisement.class, 1);
+		
+		
+		
 
 	}
 
