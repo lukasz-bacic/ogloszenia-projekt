@@ -2,6 +2,7 @@ package ogloszenia.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -79,6 +81,9 @@ public class Advertisement {
 	
 	@Column(nullable=false)
 	Integer views;
+	
+	@OneToMany(mappedBy="advertisementId")
+	Set<Message> messages;
 	
 	
 	public Advertisement(){}
