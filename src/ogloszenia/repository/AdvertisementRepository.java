@@ -18,8 +18,8 @@ public class AdvertisementRepository {
 	public static Optional<Advertisement> findById(Integer id) {
 		Session session = null;
 		try {
-			session = HibernateUtil.openSession().getSession();
-			String hql = "SELECT e FROM Advertisement e WHERE e.id=:id";
+			session = HibernateUtil.openSession();
+			String hql = "SELECT  e FROM Advertisement e WHERE e.id=:id";
 			Query query = session.createQuery(hql);
 			query.setParameter("id",id);
 			return Optional.ofNullable((Advertisement) query.getSingleResult());
@@ -35,7 +35,7 @@ public class AdvertisementRepository {
 	public static List<Advertisement> findByCategory(CATEGORY category){
 		Session session = null;
 		try {
-			session = HibernateUtil.openSession().getSession();
+			session = HibernateUtil.openSession();
 			String hql = "SELECT e FROM Advertisement e WHERE e.category=:category";
 			Query query = session.createQuery(hql);
 			query.setParameter("category", category);
@@ -52,7 +52,7 @@ public class AdvertisementRepository {
 	public static Integer persist(Advertisement advertisement) {
 		Session session = null;
 		try {
-			session = HibernateUtil.openSession().getSession();
+			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
 			session.persist(advertisement);
 			session.getTransaction().commit();
@@ -70,7 +70,7 @@ public class AdvertisementRepository {
 	public static boolean merge(Advertisement advertisement) {
 		Session session = null;
 		try {
-			session = HibernateUtil.openSession().getSession();
+			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
 			session.merge(advertisement);
 			session.getTransaction().commit();
@@ -89,7 +89,7 @@ public class AdvertisementRepository {
 		Session session = null;
 		try {
 		
-			session = HibernateUtil.openSession().getSession();
+			session = HibernateUtil.openSession();
 		
 			Optional<Advertisement> advertisement = findById(id);
 			if (advertisement.isPresent()) {
