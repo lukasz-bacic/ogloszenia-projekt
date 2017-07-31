@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,7 +55,7 @@ public class Advertisement {
 	byte[] img;						
 	
 	@JoinColumn(nullable=false)
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	User owner; 
 
 	@Column(nullable=false)
@@ -98,12 +99,28 @@ public class Advertisement {
 	@OneToMany(mappedBy="advertisementId")
 	Set<Message> messages;
 	
-	@OneToMany(mappedBy="advertisementId")
+	@OneToMany(mappedBy="advertisement")
 	Set<Image> images;
 	
 	
 	public Advertisement(){}
 	
+	public Advertisement(String title, BigDecimal price, String description, String location, User user) {
+		this.title = title;
+		this.text = description;
+		this.price = price;
+		this.cityName = location;
+		this.owner = user;
+		
+		this.category = CATEGORY.MOTORYZACJA;
+		this.isPremium = false;
+		this.isActive = true;
+		this.views = 0;
+		this.dateFrom = LocalDate.now();
+		this.dateTo = this.dateFrom.plusMonths(1);
+		this.rating = 0;
+		
+	}
 	
 	public byte[] getImg() {
 		return img;
