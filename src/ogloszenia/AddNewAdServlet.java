@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AddNewAdServlet extends HttpServlet{
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		
 		PrintWriter pw = resp.getWriter();
 		pw.write("ok");
