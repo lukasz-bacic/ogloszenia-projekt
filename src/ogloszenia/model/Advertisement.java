@@ -2,6 +2,7 @@ package ogloszenia.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -211,8 +212,8 @@ public class Advertisement {
 		this.id = id;
 	}
 
-	public User getOwner() {
-		return owner;
+	public Optional<User> getOwner() {
+		return Optional.ofNullable(owner);
 	}
 
 
