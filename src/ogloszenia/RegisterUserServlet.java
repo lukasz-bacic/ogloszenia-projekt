@@ -35,7 +35,8 @@ public class RegisterUserServlet extends HttpServlet {
 		else {
 			User user = new User(nick, password, email, location);
 			UserRepository.persist(user);
-			
+			PrintWriter writer = resp.getWriter();
+			writer.write("ok");
 		}
 	}
 
