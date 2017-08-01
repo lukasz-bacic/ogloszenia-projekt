@@ -27,4 +27,14 @@
     <servlet-name>AddNewMessageServlet</servlet-name>
     <url-pattern>/AddNewMessageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddNewConversationMessageServlet</display-name>
+    <servlet-name>AddNewConversationMessageServlet</servlet-name>
+    <servlet-class>ogloszenia.AddNewConversationMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddNewConversationMessageServlet</servlet-name>
+    <url-pattern>/AddNewConversationMessageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

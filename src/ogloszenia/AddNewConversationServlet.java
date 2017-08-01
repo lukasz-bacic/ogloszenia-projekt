@@ -15,6 +15,7 @@ import ogloszenia.model.Conversation;
 import ogloszenia.model.ConversationMessage;
 import ogloszenia.model.User;
 import ogloszenia.repository.AdvertisementRepository;
+import ogloszenia.repository.ConversationMessageRepository;
 
 /**
  * Servlet implementation class AddNewMessageServlet
@@ -49,7 +50,11 @@ public class AddNewConversationServlet extends HttpServlet {
 			conversation.setConversationSender(messageSender);
 			conversation.setConversationReceiver(ad.get().getOwner());
 			ConversationMessage conversationMessage = new ConversationMessage(text, conversation, messageSender);
-
+			
+			ConversationMessageRepository.persist(conversationMessage);
+			
+			res.getWriter().write("wiadomosc zostala wyslana");
+			
 		}
 
 	}
