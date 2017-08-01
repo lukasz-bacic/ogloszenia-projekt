@@ -13,7 +13,7 @@ import ogloszenia.model.Advertisement;
 import ogloszenia.model.User;
 import ogloszenia.repository.AdvertisementRepository;
 
-public class AddNewAdServlet extends HttpServlet{
+public class AddNewAdServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,7 +21,6 @@ public class AddNewAdServlet extends HttpServlet{
 		BigDecimal price = BigDecimal.ZERO;
 		String description;
 		String location;
-		
 
 		title = req.getParameter("title");
 		try {
@@ -31,31 +30,27 @@ public class AddNewAdServlet extends HttpServlet{
 		}
 		description = req.getParameter("description");
 		location = req.getParameter("location");
-		
-		if(isNotValid(title, price, description, location) ) {
+
+		if (isNotValid(title, price, description, location)) {
 			PrintWriter pw = resp.getWriter();
 			pw.write("blad");
 		}
-		
-		User owner= new User();
+
+		User owner = new User();
 		owner.setCityName("Poznan");
 		owner.setEmail("test@home.pl");
 		owner.setNick("test");
 		owner.setPassword("admin");
-		
+
 		Advertisement ad = new Advertisement(title, price, description, location, owner);
 		AdvertisementRepository.persist(ad);
 		
-		PrintWriter pw = resp.getWriter();
-		pw.write("ok");
-		
-		
+		resp.sendRedirect("products.html");
+
 	}
 
 	private boolean isNotValid(String title, BigDecimal price, String description, String location) {
 		return title.isEmpty() || description.isEmpty() || location.isEmpty() || price.compareTo(BigDecimal.ZERO) == -1;
 	}
 
-	
-	
 }

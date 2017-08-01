@@ -13,16 +13,16 @@
 		<servlet-name>addNewServlet</servlet-name>
 		<url-pattern>/ad-new-ad</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>registerUserServlet</servlet-name>
 		<servlet-class>ogloszenia.RegisterUserServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>registerUserServlet</servlet-name>
 		<url-pattern>/reg-new-user</url-pattern>
 	</servlet-mapping>
 
-	
+
 </web-app>
