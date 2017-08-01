@@ -97,7 +97,7 @@ public class Advertisement {
 	Set <User> watchers;
 	
 	@OneToMany(mappedBy="advertisementId")
-	Set<Message> messages;
+	Set<Conversation> messages;
 	
 	@OneToMany(mappedBy="advertisement")
 	Set<Image> images;
@@ -229,8 +229,8 @@ public class Advertisement {
 		this.id = id;
 	}
 
-	public Optional<User> getOwner() {
-		return Optional.ofNullable(owner);
+	public User getOwner() {
+		return owner;
 	}
 
 
