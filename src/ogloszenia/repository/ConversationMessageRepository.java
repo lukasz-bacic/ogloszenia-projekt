@@ -2,28 +2,38 @@ package ogloszenia.repository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ogloszenia.model.Conversation;
 import ogloszenia.model.ConversationMessage;
+import ogloszenia.model.User;
 import ogloszeniar.hibernate.util.HibernateUtil;
 
 public class ConversationMessageRepository {
+	final static Logger logger = Logger.getLogger(ConversationMessageRepository.class);
+
 	
 	public static Integer persist(ConversationMessage conversationMessage) {
 		Session session = null;
 		try {
 			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
+			if(! session.contains(conversationMessage.getConversation())) {
+				conversationMessage.setConversation((Conversation) session.merge(conversationMessage.getConversation()));	
+			}
+			if(! session.contains(conversationMessage.getOwner())) {
+				conversationMessage.setOwner((User) session.merge(conversationMessage.getOwner()));
+			}
 			session.persist(conversationMessage);
 			session.getTransaction().commit();
+			logger.info("ddddddddd");
 			return conversationMessage.getId();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return 0;
 		} finally {
@@ -41,7 +51,7 @@ public class ConversationMessageRepository {
 			query.setParameter("id",id);
 			return  query.getResultList();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return Collections.emptyList();
 		} finally {

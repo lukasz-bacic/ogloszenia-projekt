@@ -3,6 +3,7 @@ package ogloszenia.model;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,11 +36,11 @@ public class Conversation {
 	private Advertisement advertisementId;
 	
 	@JoinColumn(nullable=false)
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private User conversationSender;
 	
 	@JoinColumn(nullable=false)
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private User conversationReceiver;
 	
 	
