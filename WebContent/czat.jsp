@@ -102,9 +102,9 @@
 
 			<div class="col-md-8">
 				<div class="message-wrapper">
-				
+
 					<c:forEach items="${conversationMessages}" var="cm">
-		
+
 						<c:if test="${cm.owner.id==1}">
 							<div class="col-md-12">
 								<div class="panel panel-default my-message">
@@ -113,7 +113,7 @@
 								</div>
 							</div>
 						</c:if>
-						
+
 						<c:if test="${cm.owner.id !=1}">
 							<div class="col-md-12">
 								<div class="panel panel-default other-message">
@@ -122,7 +122,7 @@
 								</div>
 							</div>
 						</c:if>
-	
+
 
 					</c:forEach>
 
@@ -130,8 +130,11 @@
 
 				</div>
 				<div class="message-container">
-					<textarea name="message" class="form-control" rows="6"></textarea>
-					<button class="btn btn-classic col-md-12">Wyslij</button>
+					<form action="send-message" method="post">
+						<textarea name="message" class="form-control" rows="6"></textarea>
+						<input type="hidden" name="conversationId" value="${conversation.id}"/>
+						<button class="btn btn-classic col-md-12" type="submit">Wyslij</button>
+					</form>
 				</div>
 			</div>
 			<div class="col-md-2">

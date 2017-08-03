@@ -35,6 +35,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AddNewConversationMessageServlet</servlet-name>
-    <url-pattern>/AddNewConversationMessageServlet</url-pattern>
+    <url-pattern>/send-message</url-pattern>
   </servlet-mapping>
 </web-app>

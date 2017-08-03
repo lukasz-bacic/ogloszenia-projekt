@@ -13,6 +13,7 @@ import ogloszenia.model.ConversationMessage;
 import ogloszenia.model.User;
 import ogloszenia.repository.ConversationMessageRepository;
 import ogloszenia.repository.ConversationRepository;
+import ogloszenia.repository.UserRepository;
 
 /**
  * Servlet implementation class AddNewConversationMessageServlet
@@ -21,36 +22,41 @@ public class AddNewConversationMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
 		Integer conversationId = 0;
 		String text = "";
-		User messageSender = new User("Romek", "11111", "romek@gmail.com", "Poznan");
-		
+		User messageSender = null;
+		Optional<User> messageSendeOptional = UserRepository.findByEmail("romek@gmail.com");
+		if (messageSendeOptional.isPresent()) {
+			messageSender = messageSendeOptional.get();
+		} else {
+			messageSender = new User("Romek", "11111", "romek@gmail.com", "Poznan");
+		}
+
 		try {
-		conversationId = Integer.valueOf(req.getParameter("conversationId"));
+			conversationId = Integer.valueOf(req.getParameter("conversationId"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		text = req.getParameter("message");
-		
-		//pobieramy konwrsacje
+
+		// pobieramy konwrsacje
 		Optional<Conversation> conversationTmp = ConversationRepository.findById(conversationId);
 		if (conversationTmp.isPresent()) {
 			Conversation conversation = conversationTmp.get();
-			
+
 			ConversationMessage newMessage = new ConversationMessage(text, conversation, messageSender);
-			
+
 			ConversationMessageRepository.persist(newMessage);
-			
+
 			resp.getWriter().write("wiadomosc zostala wyslana");
-			
-			
+
 		}
-		
+
 	}
 
 }
