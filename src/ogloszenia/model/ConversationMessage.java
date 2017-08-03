@@ -1,5 +1,7 @@
 package ogloszenia.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,41 +11,47 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class ConversationMessage {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true)
 	private Integer id;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String messageContent;
-	
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	Conversation conversation;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	User owner;
-	
+
+	@Column(nullable = false)
+	LocalDate createDate;
+
 	public ConversationMessage() {
-		
+
 	}
-	
-	
 
 	public ConversationMessage(String messageContent, Conversation conversation, User owner) {
-		
+
 		this.messageContent = messageContent;
 		this.conversation = conversation;
 		this.owner = owner;
+		this.createDate = LocalDate.now();
 	}
 
+	public LocalDate getCreateDate() {
+		return createDate;
+	}
 
+	public void setCreateDate(LocalDate createDate) {
+		this.createDate = createDate;
+	}
 
 	public Conversation getConversation() {
 		return conversation;
@@ -68,7 +76,7 @@ public class ConversationMessage {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getMessageContent() {
 		return messageContent;
 	}
@@ -76,5 +84,5 @@ public class ConversationMessage {
 	public void setMessageContent(String messageContent) {
 		this.messageContent = messageContent;
 	}
-	
+
 }
