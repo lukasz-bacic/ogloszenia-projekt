@@ -1,3 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page
+	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
+	
+	<%
+	Integer advertisementId = Integer.valueOf(request.getParameter("advertisementId"));
+	Optional<Advertisement> ad = AdvertisementRepository.findById(advertisementId);
+	if(ad.isPresent()){
+		pageContext.setAttribute("advertisement", ad.get());		
+	}
+%>
+	
+	<c:set value="${advertisement}"
+	var="ad" />
+
 <!DOCTYPE html>
 
 <head>
@@ -37,10 +54,10 @@
         <div>
             <form action="/search" method="post">
                 <div class="form-group row col-md-5">
-                    <input type="text" placeholder="wpisz nazwę" name="phrase" class="form-control" />
+                    <input type="text" placeholder="wpisz nazwÄ" name="phrase" class="form-control" />
                 </div>
                 <div class="form-group row col-md-5">
-                    <input type="text" placeholder="wpisz miejscowość" name="location" class="form-control" />
+                    <input type="text" placeholder="wpisz miejscowoÅÄ" name="location" class="form-control" />
                 </div>
                 <div class="form-group row col-md-2">
                     <button type="submit" class="btn btn-classic">szukaj</button>
@@ -52,10 +69,10 @@
 
     <div class="container category">
         <div class="col-md-6">
-        <h2>Ford Mustang</h2>
+        <h2>${ad.title}</h2>
         </div>
         <div class="col-md-4">
-            <h3 class="pull-right">Lokalizacja: Poznań</h3>
+            <h3 class="pull-right">Lokalizacja: ${ad.cityName}</h3>
         </div>
     </div>
 
@@ -69,10 +86,9 @@
                     </a>
                 </div>
                 <div class="col-md-12 ad-info">
-                    <h4 class="media-heading">Middle aligned media</h4>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, hic fugiat id illo quod porro quam corporis sint quidem blanditiis quo quas reprehenderit officia! Quibusdam magni ipsa voluptas ullam molestiae.
+                    ${ad.text}
                     <h3 class="price">
-                        50.000 zł
+                        ${ad.price} zł
                     </h3>
                 </div>
             </div>
@@ -80,16 +96,17 @@
             <h5>Dane autora:</h5>
             <img src="https://iceland-photo-tours.com/wp-content/uploads/2015/02/fb-avatar.jpg" class="avatar" />
             
-            <h5>Imie uzytkownika</h5>
-            <h5>lorem</h5>
-            <h5>lorem</h5>
-            <h5>lorem</h5>
-            <h5>lorem</h5>
-            <h5>lorem</h5>
+            <h5>${ad.owner.nick}</h5>
+            <h5>${ad.owner.email}</h5>
+            <h5>${ad.owner.cityName}</h5>
+
             
             <div class="message-container">
-            <textarea name="message" class="form-control" rows="6" ></textarea>
-            <button class="btn btn-classic">Wyślij</button>
+            <form action="add-new-conv" method="post">
+            <input type="hidden" name="idAdvertisement" value="${ad.id}"/>
+            <textarea name="message" class="form-control" rows="6" required="required"></textarea>
+            <button class="btn btn-classic" type="submit">Wyślij</button>
+            </form>
             </div>
             
             </div>
