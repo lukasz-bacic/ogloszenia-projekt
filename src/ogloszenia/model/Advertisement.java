@@ -45,7 +45,7 @@ public class Advertisement {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true)
 	Integer id;
 	

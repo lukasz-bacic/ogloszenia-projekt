@@ -29,13 +29,7 @@ public class AddNewConversationMessageServlet extends HttpServlet {
 
 		Integer conversationId = 0;
 		String text = "";
-		User messageSender = null;
-		Optional<User> messageSendeOptional = UserRepository.findByEmail("romek@gmail.com");
-		if (messageSendeOptional.isPresent()) {
-			messageSender = messageSendeOptional.get();
-		} else {
-			messageSender = new User("Romek", "11111", "romek@gmail.com", "Poznan");
-		}
+	
 
 		try {
 			conversationId = Integer.valueOf(req.getParameter("conversationId"));
@@ -48,12 +42,12 @@ public class AddNewConversationMessageServlet extends HttpServlet {
 		Optional<Conversation> conversationTmp = ConversationRepository.findById(conversationId);
 		if (conversationTmp.isPresent()) {
 			Conversation conversation = conversationTmp.get();
+			ConversationMessage newMessage = new ConversationMessage(text, conversation);
+			Optional<ConversationMessage> conversationMessageOptional=	ConversationMessageRepository.persist(newMessage, 1);
+			
+			if(conversationMessageOptional.isPresent())
+				resp.sendRedirect("czat.jsp?conversationId="+conversationMessageOptional.get().getConversation().getId());
 
-			ConversationMessage newMessage = new ConversationMessage(text, conversation, messageSender);
-
-			ConversationMessageRepository.persist(newMessage);
-
-			resp.getWriter().write("wiadomosc zostala wyslana");
 
 		}
 

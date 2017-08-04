@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import ogloszenia.model.Advertisement;
 import ogloszenia.model.Conversation;
 import ogloszenia.model.ConversationMessage;
-import ogloszenia.model.User;
 import ogloszenia.repository.AdvertisementRepository;
 import ogloszenia.repository.ConversationMessageRepository;
+import ogloszenia.repository.UserRepository;
 
 /**
  * Servlet implementation class AddNewMessageServlet
@@ -23,6 +23,7 @@ import ogloszenia.repository.ConversationMessageRepository;
 public class AddNewConversationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private final int userId = 1;
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -31,7 +32,6 @@ public class AddNewConversationServlet extends HttpServlet {
 
 		String text;
 		Integer idAdvertisement = 0;
-		User messageSender = new User("Romek", "11111", "romek@gmail.com", "Poznan");
 
 		text = req.getParameter("message");
 		try {
@@ -47,13 +47,14 @@ public class AddNewConversationServlet extends HttpServlet {
 			Conversation conversation = new Conversation();
 			conversation.setMessageDate(LocalDate.now());
 			conversation.setAdvertisementId(ad.get());
-			conversation.setConversationSender(messageSender);
+			conversation.setConversationSender(UserRepository.findById(userId).get());
 			conversation.setConversationReceiver(ad.get().getOwner());
-			ConversationMessage conversationMessage = new ConversationMessage(text, conversation, messageSender);
+			ConversationMessage conversationMessage = new ConversationMessage(text, conversation);
 			
-			ConversationMessageRepository.persist(conversationMessage);
-			
-			res.getWriter().write("wiadomosc zostala wyslana");
+			Optional<ConversationMessage> conversationMessageOptional = 
+					ConversationMessageRepository.persist(conversationMessage, userId);
+			if(conversationMessageOptional.isPresent())
+			res.sendRedirect("czat.jsp?conversationId="+conversationMessageOptional.get().getConversation().getId());
 			
 		}
 

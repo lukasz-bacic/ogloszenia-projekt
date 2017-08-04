@@ -28,7 +28,7 @@ public class Conversation {
 	
 	@Id
 	@Column(name="id", unique=true)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -36,11 +36,11 @@ public class Conversation {
 	private Advertisement advertisementId;
 	
 	@JoinColumn(nullable=false)
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User conversationSender;
 	
 	@JoinColumn(nullable=false)
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User conversationReceiver;
 	
 	

@@ -37,11 +37,9 @@ public class ConversationMessage {
 
 	}
 
-	public ConversationMessage(String messageContent, Conversation conversation, User owner) {
-
+	public ConversationMessage(String messageContent, Conversation conversation) {
 		this.messageContent = messageContent;
 		this.conversation = conversation;
-		this.owner = owner;
 		this.createDate = LocalDate.now();
 	}
 

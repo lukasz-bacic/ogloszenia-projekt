@@ -2,6 +2,7 @@ package ogloszenia.repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Query;
 
@@ -36,25 +37,29 @@ public class ConversationMessageRepository {
 
 	}
 	
-	public static Integer persist(ConversationMessage conversationMessage) {
+	public static Optional<ConversationMessage> persist(ConversationMessage conversationMessage, int userId) {
 		Session session = null;
 		try {
 			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
-			if(! session.contains(conversationMessage.getConversation())) {
+			if(! session.contains(conversationMessage.getConversation())  && conversationMessage.getConversation().getId() != null) {
+				//ustawienie konwersjaci z bazy dla istniejacej
 				conversationMessage.setConversation((Conversation) session.merge(conversationMessage.getConversation()));	
+			}else {
+			Conversation c=	conversationMessage.getConversation();
+			c.setConversationReceiver((User) session.merge(UserRepository.findById(c.getConversationReceiver().getId()).get()));
+			c.setConversationSender((User) session.merge(UserRepository.findById(c.getConversationSender().getId()).get()));	
+			conversationMessage.setConversation(c);
 			}
-			if(! session.contains(conversationMessage.getOwner())) {
-				conversationMessage.setOwner((User) session.merge(conversationMessage.getOwner()));
-			}
+			conversationMessage.setOwner((User) session.merge(UserRepository.findById(userId).get()));
 			session.persist(conversationMessage);
 			session.getTransaction().commit();
 		
-			return conversationMessage.getId();
+			return Optional.ofNullable(conversationMessage);
 		} catch (Exception ex) {
 			logger.error(ex);
 			session.getTransaction().rollback();
-			return 0;
+			return Optional.empty();
 		} finally {
 			session.close();
 		}
