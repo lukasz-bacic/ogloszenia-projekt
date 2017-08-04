@@ -70,6 +70,9 @@
 		</div>
 	</div>
 
+	<div class="container category">
+		<c:import url="category.jsp" />
+	</div>
 
 	<div class="container category">
 		<div class="col-md-6">
@@ -132,7 +135,8 @@
 				<div class="message-container">
 					<form action="send-message" method="post">
 						<textarea name="message" class="form-control" rows="6"></textarea>
-						<input type="hidden" name="conversationId" value="${conversation.id}"/>
+						<input type="hidden" name="conversationId"
+							value="${conversation.id}" />
 						<button class="btn btn-classic col-md-12" type="submit">Wyslij</button>
 					</form>
 				</div>

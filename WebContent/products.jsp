@@ -11,8 +11,6 @@
 	String categoryName = CategoryRepository.findByCategory(category).getName();
 	pageContext.setAttribute("category", category);
 	pageContext.setAttribute("categoryName", categoryName);
-
-
 %>
 <c:set value="${AdvertisementRepository.findByCategory(category)}"
 	var="adList" />
@@ -70,6 +68,10 @@
 
 
 	<div class="container category">
+		<c:import url="category.jsp" />
+	</div>
+	
+	<div class="container category">
 		<div class="col-md-7">
 			<h2>${categoryName}</h2>
 		</div>
@@ -92,19 +94,22 @@
 
 	<div class="container ad">
 		<c:forEach items="${adList}" var="ad">
-			
+
 			<div class="media panel">
 
 				<div class="media-left media-middle">
-					<a href="product.jsp?advertisementId=${ad.id}"> <img class="media-object small-object"
+					<a href="product.jsp?advertisementId=${ad.id}"> <img
+						class="media-object small-object"
 						src="http://blog.caranddriver.com/wp-content/uploads/2016/11/Ford-Mustang-Shelby-GT350-lead.jpg"
 						alt="brak zdjeci">
 					</a>
 				</div>
 				<div class="media-body">
-					<h4 class="media-heading"><a href="product.jsp?advertisementId=${ad.id}">${ad.title}</a></h4>
+					<h4 class="media-heading">
+						<a href="product.jsp?advertisementId=${ad.id}">${ad.title}</a>
+					</h4>
 					${ad.text}
-					<h3 class="price">${ad.price} zł</h3>
+					<h3 class="price">${ad.price}zł</h3>
 				</div>
 			</div>
 		</c:forEach>

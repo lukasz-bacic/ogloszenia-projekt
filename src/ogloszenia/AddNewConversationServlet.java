@@ -23,13 +23,15 @@ import ogloszenia.repository.UserRepository;
 public class AddNewConversationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final int userId = 1;
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+		Integer userId=0;
+		userId =(Integer) req.getSession().getAttribute("userId");
+		
 		String text;
 		Integer idAdvertisement = 0;
 

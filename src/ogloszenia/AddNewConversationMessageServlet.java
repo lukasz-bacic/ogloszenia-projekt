@@ -27,6 +27,10 @@ public class AddNewConversationMessageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		Integer userId=0;
+		userId =(Integer) req.getSession().getAttribute("userId");
+		
+		
 		Integer conversationId = 0;
 		String text = "";
 	
@@ -43,7 +47,7 @@ public class AddNewConversationMessageServlet extends HttpServlet {
 		if (conversationTmp.isPresent()) {
 			Conversation conversation = conversationTmp.get();
 			ConversationMessage newMessage = new ConversationMessage(text, conversation);
-			Optional<ConversationMessage> conversationMessageOptional=	ConversationMessageRepository.persist(newMessage, 1);
+			Optional<ConversationMessage> conversationMessageOptional=	ConversationMessageRepository.persist(newMessage, userId);
 			
 			if(conversationMessageOptional.isPresent())
 				resp.sendRedirect("czat.jsp?conversationId="+conversationMessageOptional.get().getConversation().getId());

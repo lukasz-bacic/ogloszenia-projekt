@@ -1,10 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
+	pageEncoding="ISO-8859-2"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page
-	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*"%>
+	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
 
-<c:set var="categoryList" value="${CategoryRepository.findAll()}" />
+<%
+	Integer userId = (Integer) request.getSession().getAttribute("userId");
+	if (userId != null) {
+		Optional<User> user = UserRepository.findById(userId);
+		if (user.isPresent()) {
+			String nick = user.get().getNick();
+			pageContext.setAttribute("nick", nick);
+		}
+	}
+%>
 
 <!DOCTYPE html>
 
@@ -31,29 +40,37 @@
 		</div>
 		<div class="col-md-6"></div>
 		<div class="col-md-4 menu">
-			<div>Login: testowe</div>
-
-
-			<div class="dropdown">
-				<button onclick="myFunction()" class="dropbtn">Menu</button>
-				<div id="myDropdown" class="dropdown-content">
-					<a href="#about">Czat</a> 
-				</div>
+			<div>
+				Login:
+				<c:if test="${! empty  nick}">
+				${nick}
+				</c:if>
+				<c:if test="${empty nick}">
+					<a href="login.html">Zaloguj się</a>
+				</c:if>
 			</div>
-
-
 		</div>
+
+		<div class="dropdown">
+			<button onclick="myFunction()" class="dropbtn">Menu</button>
+			<div id="myDropdown" class="dropdown-content">
+				<a href="#about">Czat</a>
+			</div>
+		</div>
+
+
+	</div>
 	</div>
 
 	<div class="container">
 		<div>
 			<form action="/search" method="post">
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz nazwę" name="phrase"
+					<input type="text" placeholder="wpisz nazwÄ" name="phrase"
 						class="form-control" />
 				</div>
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz miejscowość"
+					<input type="text" placeholder="wpisz miejscowoÅÄ"
 						name="location" class="form-control" />
 				</div>
 				<div class="form-group row col-md-2">
@@ -65,17 +82,7 @@
 
 
 	<div class="container category">
-
-		<c:forEach items="${categoryList}" var="categoryDTO">
-			<div class="col-md-3">
-				<span class="category-item fa ${categoryDTO.iconName}"> <a
-					href="products.jsp?category=${categoryDTO.category}">
-						${categoryDTO.name}</a>
-				</span>
-			</div>
-		</c:forEach>
-
-
+		<c:import url="category.jsp" />
 	</div>
 
 	<div class="container ad">
@@ -93,7 +100,7 @@
 				fugiat id illo quod porro quam corporis sint quidem blanditiis quo
 				quas reprehenderit officia! Quibusdam magni ipsa voluptas ullam
 				molestiae.
-				<h3 class="price">50.000 zł</h3>
+				<h3 class="price">50.000 zÅ</h3>
 			</div>
 		</div>
 
@@ -111,7 +118,7 @@
 				fugiat id illo quod porro quam corporis sint quidem blanditiis quo
 				quas reprehenderit officia! Quibusdam magni ipsa voluptas ullam
 				molestiae.
-				<h3 class="price">50.000 zł</h3>
+				<h3 class="price">50.000 zÅ</h3>
 			</div>
 		</div>
 		<div class="media panel">
@@ -128,7 +135,7 @@
 				fugiat id illo quod porro quam corporis sint quidem blanditiis quo
 				quas reprehenderit officia! Quibusdam magni ipsa voluptas ullam
 				molestiae.
-				<h3 class="price">50.000 zł</h3>
+				<h3 class="price">50.000 zÅ</h3>
 			</div>
 		</div>
 
@@ -145,7 +152,7 @@
 	<footer>
 		<div class="container footer form-inline">
 			<div class="col-md-3">
-				<a href="#">Strona główna</a>
+				<a href="#">Strona gÅÃ³wna</a>
 			</div>
 			<div class="col-md-3">
 				<a href="#">Profil</a>

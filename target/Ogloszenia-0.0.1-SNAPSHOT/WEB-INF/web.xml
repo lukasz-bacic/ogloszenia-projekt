@@ -28,7 +28,6 @@
     <url-pattern>/add-new-conv</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
     <display-name>AddNewConversationMessageServlet</display-name>
     <servlet-name>AddNewConversationMessageServlet</servlet-name>
     <servlet-class>ogloszenia.AddNewConversationMessageServlet</servlet-class>
@@ -36,5 +35,14 @@
   <servlet-mapping>
     <servlet-name>AddNewConversationMessageServlet</servlet-name>
     <url-pattern>/send-message</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>ogloszenia.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 </web-app>
