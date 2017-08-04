@@ -33,9 +33,12 @@
 		<div class="col-md-4 menu">
 			<div>Login: testowe</div>
 
-			<div>menu</div>
-			<div id="nav-icon1">
-				<span></span> <span></span> <span></span>
+
+			<div class="dropdown">
+				<button onclick="myFunction()" class="dropbtn">Menu</button>
+				<div id="myDropdown" class="dropdown-content">
+					<a href="#about">Czat</a> 
+				</div>
 			</div>
 
 

@@ -16,6 +16,25 @@ import ogloszeniar.hibernate.util.HibernateUtil;
 public class ConversationMessageRepository {
 	final static Logger logger = Logger.getLogger(ConversationMessageRepository.class);
 
+	public static Integer addNewConversationMessage(ConversationMessage conversationMessage, int userId) {
+		Session session = null;
+		try {
+			session = HibernateUtil.openSession();
+			session.getTransaction().begin();
+			conversationMessage.setOwner(UserRepository.findById(userId).get());
+			session.persist(conversationMessage);
+			session.getTransaction().commit();
+		
+			return conversationMessage.getId();
+		} catch (Exception ex) {
+			logger.error(ex);
+			session.getTransaction().rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+
+	}
 	
 	public static Integer persist(ConversationMessage conversationMessage) {
 		Session session = null;
@@ -30,7 +49,7 @@ public class ConversationMessageRepository {
 			}
 			session.persist(conversationMessage);
 			session.getTransaction().commit();
-			logger.info("ddddddddd");
+		
 			return conversationMessage.getId();
 		} catch (Exception ex) {
 			logger.error(ex);

@@ -8,8 +8,10 @@
 <%
 	String categoryParam = request.getParameter("category");
 	CATEGORY category = CATEGORY.valueOf(categoryParam);
+	String categoryName = CategoryRepository.findByCategory(category).getName();
 	pageContext.setAttribute("category", category);
-	
+	pageContext.setAttribute("categoryName", categoryName);
+
 
 %>
 <c:set value="${AdvertisementRepository.findByCategory(category)}"
@@ -69,7 +71,7 @@
 
 	<div class="container category">
 		<div class="col-md-7">
-			<h2>Motoryzacja</h2>
+			<h2>${categoryName}</h2>
 		</div>
 		<div class="col-md-5">
 			<div class="col-md-4 sorting-right">

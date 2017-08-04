@@ -1,3 +1,15 @@
+<%@page import="ogloszenia.model.dto.CategoryDTO"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page
+	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
+
+<%
+List<CategoryDTO> categoryList =  CategoryRepository.findAll();
+pageContext.setAttribute("categoryList", categoryList);
+%>
+
 <!DOCTYPE html>
 
 <head>
@@ -36,10 +48,10 @@
         <div>
             <form action="/search" method="post">
                 <div class="form-group row col-md-5">
-                    <input type="text" placeholder="wpisz nazwê" name="phrase" class="form-control" />
+                    <input type="text" placeholder="wpisz nazwÃª" name="phrase" class="form-control" />
                 </div>
                 <div class="form-group row col-md-5">
-                    <input type="text" placeholder="wpisz miejscowoœæ" name="location" class="form-control" />
+                    <input type="text" placeholder="wpisz miejscowoÂœÃ¦" name="location" class="form-control" />
                 </div>
                 <div class="form-group row col-md-2">
                     <button type="submit" class="btn btn-classic">szukaj</button>
@@ -51,14 +63,14 @@
 
     <div class="container category">
         <div class="col-md-6">
-            <h2>Dodaj nowe og³oszenie</h2>
+            <h2>Dodaj nowe ogÂ³oszenie</h2>
         </div>
 
     </div>
     <div class="container ad">
         <form action="ad-new-ad" method="post">
             <div class="form-group">
-                <label>Tytu³ og³oszenia</label>
+                <label>TytuÅ‚ ogÅ‚oszenia</label>
                 <input class="form-control" name="title" type="text" required/>
             </div>
             <div class="form-group">
@@ -75,7 +87,15 @@
                 <input class="form-control" name="img" type="file" required//>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-classic">Wyœlij</button>
+            	<label>Kategoria</label>
+            	<select name="category"  class="form-control" required>
+            	<c:forEach items="${categoryList}" var="categoryDTO">
+            	<option value="${categoryDTO.category}">${categoryDTO.name}</option>
+            	</c:forEach>
+            	</select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-classic">WyÂœlij</button>
             </div>
 
         </form>
@@ -93,7 +113,7 @@
     <footer>
         <div class="container footer form-inline">
             <div class="col-md-3">
-                <a href="#">Strona g³ówna</a>
+                <a href="#">Strona gÂ³Ã³wna</a>
             </div>
             <div class="col-md-3">
                 <a href="#">Profil</a>

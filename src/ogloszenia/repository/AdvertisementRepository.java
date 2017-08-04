@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ogloszenia.model.Advertisement;
@@ -14,6 +15,9 @@ import ogloszenia.model.User;
 import ogloszeniar.hibernate.util.HibernateUtil;
 
 public class AdvertisementRepository {
+	
+	final static Logger logger = Logger.getLogger(ConversationMessageRepository.class);
+
 	
 	public static Optional<Advertisement> findById(Integer id) {
 		Session session = null;
@@ -24,7 +28,7 @@ public class AdvertisementRepository {
 			query.setParameter("id",id);
 			return Optional.ofNullable((Advertisement) query.getSingleResult());
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return Optional.empty();
 		} finally {
@@ -41,7 +45,7 @@ public class AdvertisementRepository {
 			query.setParameter("category", category);
 			return query.getResultList();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return Collections.emptyList();
 		} finally {
@@ -49,16 +53,17 @@ public class AdvertisementRepository {
 		}
 	}
 
-	public static Integer persist(Advertisement advertisement) {
+	public static Integer persist(Advertisement advertisement,int userId) {
 		Session session = null;
 		try {
 			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
+			advertisement.setOwner((User) session.merge(UserRepository.findById(userId).get()));
 			session.persist(advertisement);
 			session.getTransaction().commit();
 			return advertisement.getId();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return 0;
 		} finally {
@@ -76,7 +81,7 @@ public class AdvertisementRepository {
 			session.getTransaction().commit();
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return false;
 		} finally {
@@ -101,7 +106,7 @@ public class AdvertisementRepository {
 			}
 			return false;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return false;
 		} finally {
@@ -120,7 +125,7 @@ public class AdvertisementRepository {
 			query.setParameter("phrase", "%"+phrase.toUpperCase()+"%");
 			return query.getResultList();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return Collections.emptyList();
 		} finally {
@@ -140,7 +145,7 @@ public class AdvertisementRepository {
 			query.setParameter("location", "%"+location.toUpperCase()+"%");
 			return query.getResultList();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error(ex);
 			session.getTransaction().rollback();
 			return Collections.emptyList();
 		} finally {

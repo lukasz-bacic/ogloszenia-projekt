@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ogloszenia.model.Advertisement;
+import ogloszenia.model.CATEGORY;
 import ogloszenia.model.User;
 import ogloszenia.repository.AdvertisementRepository;
 
@@ -21,13 +22,17 @@ public class AddNewAdServlet extends HttpServlet {
 		BigDecimal price = BigDecimal.ZERO;
 		String description;
 		String location;
+		CATEGORY category = null;
 
 		title = req.getParameter("title");
 		try {
 			price = new BigDecimal(req.getParameter("price"));
+			category = CATEGORY.valueOf(req.getParameter("category"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		description = req.getParameter("description");
 		location = req.getParameter("location");
 
@@ -36,16 +41,11 @@ public class AddNewAdServlet extends HttpServlet {
 			pw.write("blad");
 		}
 
-		User owner = new User();
-		owner.setCityName("Poznan");
-		owner.setEmail("test@home.pl");
-		owner.setNick("test");
-		owner.setPassword("admin");
-
-		Advertisement ad = new Advertisement(title, price, description, location, owner);
-		AdvertisementRepository.persist(ad);
 		
-		resp.sendRedirect("products.html");
+		Advertisement ad = new Advertisement(title, price, description, location, category);
+		AdvertisementRepository.persist(ad, 1);
+		
+		resp.sendRedirect("products.jsp?category="+ad.getCategory());
 
 	}
 

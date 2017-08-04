@@ -4,12 +4,14 @@ import java.util.Optional;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ogloszenia.model.User;
 import ogloszeniar.hibernate.util.HibernateUtil;
 
 public class UserRepository {
+	final static Logger logger = Logger.getLogger(UserRepository.class);
 
 	public static Optional<User> findByEmail(String email) {
 		Session session = null;
@@ -42,6 +44,23 @@ public class UserRepository {
 			session.close();
 		}
 
+	}
+
+	public static Optional<User> findById(int id) {
+		Session session = null;
+		try {
+			session = HibernateUtil.openSession();
+			String hql = "SELECT  e FROM User e WHERE e.id=:id";
+			Query query = session.createQuery(hql);
+			query.setParameter("id",id);
+			return  Optional.ofNullable( (User)query.getSingleResult());
+		} catch (Exception ex) {
+			logger.error(ex);
+			session.getTransaction().rollback();
+			return Optional.empty();
+		} finally {
+			session.close();
+		}
 	}
 
 }

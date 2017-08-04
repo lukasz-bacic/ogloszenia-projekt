@@ -20,6 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import ogloszenia.repository.UserRepository;
+
 
 @Entity
 
@@ -105,14 +107,12 @@ public class Advertisement {
 	
 	public Advertisement(){}
 	
-	public Advertisement(String title, BigDecimal price, String description, String location, User user) {
+	public Advertisement(String title, BigDecimal price, String description, String location, CATEGORY category) {
 		this.title = title;
 		this.text = description;
 		this.price = price;
-		this.cityName = location;
-		this.owner = user;
-		
-		this.category = CATEGORY.MOTORYZACJA;
+		this.cityName = location;		
+		this.category =category;
 		this.isPremium = false;
 		this.isActive = true;
 		this.views = 0;
