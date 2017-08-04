@@ -11,13 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import ogloszenia.model.Advertisement;
 import ogloszenia.model.CATEGORY;
-import ogloszenia.model.User;
 import ogloszenia.repository.AdvertisementRepository;
 
 public class AddNewAdServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		Integer userId=0;
+		userId =(Integer) req.getSession().getAttribute("userId");
+		if(userId == null) {
+			resp.sendRedirect("login.html");
+			
+		}else {
 		String title;
 		BigDecimal price = BigDecimal.ZERO;
 		String description;
@@ -43,9 +49,9 @@ public class AddNewAdServlet extends HttpServlet {
 
 		
 		Advertisement ad = new Advertisement(title, price, description, location, category);
-		AdvertisementRepository.persist(ad, 1);
-		
+		AdvertisementRepository.persist(ad, userId);
 		resp.sendRedirect("products.jsp?category="+ad.getCategory());
+		}
 
 	}
 

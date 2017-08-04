@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; harset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page
 	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
@@ -35,32 +35,18 @@
 <body>
 
 	<div class="container header">
-		<div class="logo col-md-2">
-			<img
-				src="https://securet9.classistatic.com/assets/images/pl_PL/logo-11309c4e19.png" />
-		</div>
-		<div class="col-md-6"></div>
-		<div class="col-md-4 menu">
-			<div>Login: testowe</div>
-
-			<div>menu</div>
-			<div id="nav-icon1">
-				<span></span> <span></span> <span></span>
-			</div>
-
-
-		</div>
+		<c:import url="top-menu.jsp"></c:import>
 	</div>
 
 	<div class="container">
 		<div>
 			<form action="/search" method="post">
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz nazwę" name="phrase"
+					<input type="text" placeholder="wpisz nazwÄ" name="phrase"
 						class="form-control" />
 				</div>
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz miejscowość"
+					<input type="text" placeholder="wpisz miejscowoÅÄ"
 						name="location" class="form-control" />
 				</div>
 				<div class="form-group row col-md-2">
@@ -79,7 +65,7 @@
 			<h2>Ford Mustang</h2>
 		</div>
 		<div class="col-md-4">
-			<h3 class="pull-right">Lokalizacja: Poznań</h3>
+			<h3 class="pull-right">Lokalizacja: PoznaÅ</h3>
 		</div>
 	</div>
 
@@ -174,7 +160,7 @@
 	<footer>
 		<div class="container footer form-inline">
 			<div class="col-md-3">
-				<a href="#">Strona główna</a>
+				<a href="#">Strona gÅÃ³wna</a>
 			</div>
 			<div class="col-md-3">
 				<a href="#">Profil</a>

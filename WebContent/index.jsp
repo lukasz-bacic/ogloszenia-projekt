@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-	pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; harset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page
 	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
@@ -23,6 +23,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet"
@@ -34,44 +35,20 @@
 <body>
 
 	<div class="container header">
-		<div class="logo col-md-2">
-			<img
-				src="https://securet9.classistatic.com/assets/images/pl_PL/logo-11309c4e19.png" />
-		</div>
-		<div class="col-md-6"></div>
-		<div class="col-md-4 menu">
-			<div>
-				Login:
-				<c:if test="${! empty  nick}">
-				${nick}
-				</c:if>
-				<c:if test="${empty nick}">
-					<a href="login.html">Zaloguj się</a>
-				</c:if>
-			</div>
-		</div>
-
-		<div class="dropdown">
-			<button onclick="myFunction()" class="dropbtn">Menu</button>
-			<div id="myDropdown" class="dropdown-content">
-				<a href="#about">Czat</a>
-			</div>
-		</div>
-
-
+		<c:import url="top-menu.jsp"></c:import>
 	</div>
-	</div>
+
 
 	<div class="container">
 		<div>
 			<form action="/search" method="post">
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz nazwÄ" name="phrase"
+					<input type="text" placeholder="wpisz nazwę" name="phrase"
 						class="form-control" />
 				</div>
 				<div class="form-group row col-md-5">
-					<input type="text" placeholder="wpisz miejscowoÅÄ"
-						name="location" class="form-control" />
+					<input type="text" placeholder="wpisz miejscowość" name="location"
+						class="form-control" />
 				</div>
 				<div class="form-group row col-md-2">
 					<button type="submit" class="btn btn-classic">szukaj</button>

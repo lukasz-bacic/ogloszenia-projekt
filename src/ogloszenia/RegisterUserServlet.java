@@ -15,7 +15,6 @@ public class RegisterUserServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		String nick;
 		String password;
@@ -29,14 +28,14 @@ public class RegisterUserServlet extends HttpServlet {
 		
 		if(isNotValid(nick, password, email, location))
 		{
-			PrintWriter writer = resp.getWriter();
-			writer.write("blad");
+			resp.sendRedirect("add-new-user.html");
 		}
 		else {
 			User user = new User(nick, password, email, location);
 			UserRepository.persist(user);
 			PrintWriter writer = resp.getWriter();
-			writer.write("ok");
+			resp.sendRedirect("login.html");
+			
 		}
 	}
 

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; harset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page
 	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
@@ -32,21 +32,7 @@
 <body>
 
 	<div class="container header">
-		<div class="logo col-md-2">
-			<img
-				src="https://securet9.classistatic.com/assets/images/pl_PL/logo-11309c4e19.png" />
-		</div>
-		<div class="col-md-6"></div>
-		<div class="col-md-4 menu">
-			<div>Login: testowe</div>
-
-			<div>menu</div>
-			<div id="nav-icon1">
-				<span></span> <span></span> <span></span>
-			</div>
-
-
-		</div>
+		<c:import url="top-menu.jsp"></c:import>
 	</div>
 
 	<div class="container">

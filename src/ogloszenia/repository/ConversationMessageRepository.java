@@ -42,17 +42,8 @@ public class ConversationMessageRepository {
 		try {
 			session = HibernateUtil.openSession();
 			session.getTransaction().begin();
-			if(! session.contains(conversationMessage.getConversation())  && conversationMessage.getConversation().getId() != null) {
-				//ustawienie konwersjaci z bazy dla istniejacej
-				conversationMessage.setConversation((Conversation) session.merge(conversationMessage.getConversation()));	
-			}else {
-			Conversation c=	conversationMessage.getConversation();
-			c.setConversationReceiver((User) session.merge(UserRepository.findById(c.getConversationReceiver().getId()).get()));
-			c.setConversationSender((User) session.merge(UserRepository.findById(c.getConversationSender().getId()).get()));	
-			conversationMessage.setConversation(c);
-			}
-			conversationMessage.setOwner((User) session.merge(UserRepository.findById(userId).get()));
-			session.persist(conversationMessage);
+			conversationMessage.setOwner(UserRepository.findById(userId).get());
+			session.saveOrUpdate(conversationMessage);
 			session.getTransaction().commit();
 		
 			return Optional.ofNullable(conversationMessage);
