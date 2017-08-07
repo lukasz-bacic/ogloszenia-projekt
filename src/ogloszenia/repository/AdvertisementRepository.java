@@ -49,7 +49,9 @@ public class AdvertisementRepository {
 			session.getTransaction().rollback();
 			return Collections.emptyList();
 		} finally {
+			if (session != null && session.isOpen()) {
 			session.close();
+			}
 		}
 	}
 
