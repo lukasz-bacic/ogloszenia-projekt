@@ -8,6 +8,12 @@
 <%
 	List<CategoryDTO> categoryList = CategoryRepository.findAll();
 	pageContext.setAttribute("categoryList", categoryList);
+	
+	Integer userId = (Integer) request.getSession().getAttribute("userId");
+	if (userId == null) {
+	response.sendRedirect("login.html");
+	}
+
 %>
 
 <!DOCTYPE html>

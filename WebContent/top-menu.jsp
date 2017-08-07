@@ -23,6 +23,6 @@
 <div class="dropdown">
 	<button onclick="myFunction()" class="dropbtn">Menu</button>
 	<div id="myDropdown" class="dropdown-content">
-		<a href="dodawanie-ogloszenia.html">Dodaj ogloszenie</a>
+		<a href="dodawanie-ogloszenia.jsp">Dodaj ogloszenie</a>
 	</div>
 </div>
