@@ -30,7 +30,7 @@
 
 	<div class="container">
 		<div>
-			<form action="/search" method="post">
+			<form action="search" method="post">
 				<div class="form-group row col-md-5">
 					<input type="text" placeholder="wpisz nazwę" name="phrase"
 						class="form-control" />

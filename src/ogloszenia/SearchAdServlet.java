@@ -29,13 +29,12 @@ public class SearchAdServlet extends HttpServlet {
 		location=req.getParameter("location");
 		phrase = req.getParameter("phrase");
 		
-		if(phrase.isEmpty()){
-			resp.getWriter().write("Proszê wpisaæ tekst");
-			
-		}else if(location.isEmpty()) {
-			List<Advertisement> ad = AdvertisementRepository.findByPhrase(phrase);
+		phrase = (phrase == null) ? "" : phrase;
+		
+		if(location == null || location.isEmpty()) {
+			resp.sendRedirect("search-results.jsp?phrase=" + phrase);
 		}else {
-			List<Advertisement> ad = AdvertisementRepository.findByPhraseAndLocation(phrase,location);
+			resp.sendRedirect("search-results.jsp?phrase=" + phrase + "&location=" + location);
 		}
 		
 	}
