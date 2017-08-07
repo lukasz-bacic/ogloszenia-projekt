@@ -3,6 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page
 	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
+
+<%
+	Integer userId = (Integer) request.getSession().getAttribute("userId");
+	pageContext.setAttribute("userId", userId);
+	if (userId != null) {
+		Optional<User> user = UserRepository.findById(userId);
+		if (user.isPresent()) {
+			String nick = user.get().getNick();
+			pageContext.setAttribute("nick", nick);
+		}
+	}
+%>
+
 <div class="logo col-md-2">
 	<img
 		src="https://securet9.classistatic.com/assets/images/pl_PL/logo-11309c4e19.png" />

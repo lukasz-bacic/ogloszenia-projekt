@@ -4,17 +4,6 @@
 <%@ page
 	import="ogloszenia.repository.*,java.util.List,ogloszenia.model.*,java.util.Optional"%>
 
-<%
-	Integer userId = (Integer) request.getSession().getAttribute("userId");
-	if (userId != null) {
-		Optional<User> user = UserRepository.findById(userId);
-		if (user.isPresent()) {
-			String nick = user.get().getNick();
-			pageContext.setAttribute("nick", nick);
-		}
-	}
-%>
-
 <!DOCTYPE html>
 
 <head>
