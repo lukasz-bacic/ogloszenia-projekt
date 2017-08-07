@@ -23,13 +23,17 @@
 <div class="col-md-6"></div>
 <div class="col-md-4 menu">
 	<div>
-		Login:
-		<c:if test="${! empty  nick}">
-				${nick}
-				</c:if>
-		<c:if test="${empty nick}">
-			<a href="login.html">Zaloguj się</a>
-		</c:if>
+
+		
+        <c:if test="${! empty nick}">
+            Login: ${nick} <a href="logout">(wyloguj się)</a>
+        </c:if>
+        <c:if test="${empty nick}">
+            <a href="login.html">Zaloguj się</a> / <a href="add-new-user.html">Zarejestruj się</a>
+        </c:if>
+
+		
+		
 	</div>
 </div>
 
