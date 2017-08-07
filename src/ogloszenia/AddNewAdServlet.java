@@ -18,6 +18,8 @@ public class AddNewAdServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		
+		byte [] img = null;
 		Integer userId=0;
 		userId =(Integer) req.getSession().getAttribute("userId");
 		if(userId == null) {
@@ -34,6 +36,7 @@ public class AddNewAdServlet extends HttpServlet {
 		try {
 			price = new BigDecimal(req.getParameter("price"));
 			category = CATEGORY.valueOf(req.getParameter("category"));
+			img = req.getParameter("img").getBytes();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +51,7 @@ public class AddNewAdServlet extends HttpServlet {
 		}
 
 		
-		Advertisement ad = new Advertisement(title, price, description, location, category);
+		Advertisement ad = new Advertisement(title, price, description, location, category, img);
 		AdvertisementRepository.persist(ad, userId);
 		resp.sendRedirect("products.jsp?category="+ad.getCategory());
 		}

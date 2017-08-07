@@ -107,7 +107,7 @@ public class Advertisement {
 	
 	public Advertisement(){}
 	
-	public Advertisement(String title, BigDecimal price, String description, String location, CATEGORY category) {
+	public Advertisement(String title, BigDecimal price, String description, String location, CATEGORY category, byte[] img) {
 		this.title = title;
 		this.text = description;
 		this.price = price;
@@ -119,7 +119,7 @@ public class Advertisement {
 		this.dateFrom = LocalDate.now();
 		this.dateTo = this.dateFrom.plusMonths(1);
 		this.rating = 0;
-		
+		this.img=img;
 	}
 	
 	public byte[] getImg() {
